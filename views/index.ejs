@@ -1,0 +1,30 @@
+<%- include("partials/header")  %> 
+<body>
+    <%- include("partials/navbar",{categories})%> 
+    <section class="head">
+        Rafa Patekoski
+    </section>
+    <div class="container">
+        <hr>
+        <h1>
+            <div class="jumbotron jumbotron-fluid color-one">
+                <div class="container">
+                  <h1 class="display-4">Blog Rafa Patekoski</h1>
+                  <p class="lead">Esse é um simples blog feito com NodeJs e MySql para armazenar os dados</p>
+                  <a href="/articles/1"><button class="btn btn-primary">Ler Mais...</button></a>
+                </div>
+              </div>
+        </h1>
+        <% if(articles != undefined){ articles.forEach(article => { %>
+            <div class="card mt-2 mb-2">
+                <div class="card-header">
+                    <%= article.title  %> 
+                </div>
+                <div class="card-body">
+                   <a href="/read/<%= article.slug %>"><button class="btn btn-success">Ler Artigo...</button></a>
+                </div>
+            </div>
+       <% })} %> 
+    </div>
+</body>
+<%- include("partials/footer")  %> 

@@ -1,0 +1,22 @@
+<%- include("partials/header")  %> 
+<body>
+    <%- include("../partials/navbar")  %> 
+    <div class="container">
+        <div class="mt-2 card color-one">
+            <div class="card-title">
+                <h3 class="text-center">Cadastrar Usuario</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/adm/user/new-user">
+                    <p>Email:</p>
+                    <input class="form-control" type="email" name="email" required><br>
+                    <p>Senha:</p>
+                    <input class="form-control" type="password" name="password" required ><br>
+                    <button class="btn btn-success btn-block">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+<%- include("partials/footer")  %> 

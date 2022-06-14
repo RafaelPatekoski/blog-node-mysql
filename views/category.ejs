@@ -1,0 +1,27 @@
+<%- include("partials/header")  %> 
+<body>
+    <%- include("partials/navbar",{categories})%> 
+    <div class="container">
+        <% if( result.articles.rows != undefined){ result.articles.rows.forEach(article => { %>
+            <div class="card mt-4">
+                <div class="card-header">
+                    <%= article.title  %> 
+                </div>
+                <div class="card-body">
+                   <a href="/read/<%= article.slug %>"><button class="btn btn-success">Ler Artigo...</button></a>
+                </div>
+            </div>
+       <% })} %> 
+        <% if(!result.next){ }else{ %> 
+        <div class="mt-2 row">
+            <div class="col col-12">
+        <a style="float: right;"href="/category/<%= result.category.slug %>/<%= result.nextPage   %>"><button class="btn btn-secondary">Next</button></a>
+        <% } %>  
+        <% if(result.nextPage == 2) {}else{ %> 
+            <a style="float: left;" href="/category/<%= result.category.slug  %>/<%= result.nextPage-2   %> "><button class="btn btn-secondary">Preview</button></a>
+       <% } %> 
+            </div>
+        </div>
+    </div>
+</body>
+<%- include("partials/footer")  %> 

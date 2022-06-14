@@ -1,0 +1,92 @@
+<%- include("../partials/header")  %> 
+<body>
+    <%- include("../partials/navbar")  %> 
+    <h1>Category....</h1>
+    <div class="container">
+        <h1>
+            Category
+        </h1>
+        <a href="/adm/category/new">
+            <button class="btn btn-success">New Category</button>
+        </a>
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Titulo
+                    </th>
+                    <th>
+                        Slug
+                    </th>
+                    <th>
+                        Ações
+                    </th>
+                </tr>
+                <tbody>
+                    <% if(data.categories != undefined){ data.categories.forEach(category => { %>
+                        <tr id="<%= category.id %>">
+                            <th>
+                                <%= category.id  %> 
+                            </th>
+                            <th>
+                                <%= category.title  %> 
+                            </th>
+                            <th>
+                                <%= category.slug  %> 
+                            </th>
+                            <th>
+                                <a href="/adm/category/edit/<%= category.id  %>"><button class="btn btn-primary"> Editar</button></a>
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#modal<%= category.id %>">Deletar</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="modal<%= category.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Deseja Deletar <%= category.title %></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    Depois não tem como voltar atrás...
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteCategory('<%= category.id %>')">Deletar</button>
+                                    </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                   <% })} %> 
+
+                </tbody>
+            </thead>
+        </table>
+    </div>
+</body>
+    <script>
+        function deleteCategory(id){
+            fetch('/adm/category/delete/'+id, {method: 'DELETE'}).then(res=>{
+                if(res.status == 200){
+                    
+                    res.text().then(categoryId=>{
+                        console.log(categoryId)
+                        document.getElementById(id).remove()
+                        console.log(document.getElementById(id))
+                    })
+                }else{
+                    res.json().then(err=>{
+                        window.alert(err.message)
+                    })
+                }
+            })
+        }
+        
+    </script>
+<%- include("../partials/footer")  %> 

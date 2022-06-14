@@ -1,0 +1,29 @@
+a {
+    color: black;
+}
+body {
+    background-color: rgb(181, 153, 233);
+}
+.color-one {
+    color: rgb(61, 39, 102);
+}
+.color-two {
+    background-color: rgb(36, 0, 83);
+    color: azure;
+}
+.color-three {
+    background-color: rgb(125, 202, 247);
+}
+.head{
+    display: flex;
+    justify-content: center;
+    font-size: 4rem;
+    color: rgb(181, 153, 233);
+    align-items: center;
+    height: 70vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.63), rgba(0, 0, 0, 0.8)), url("/img/back.jpg"); 
+    background-size: cover;
+}
+.nav {
+    background-color: rgb(181, 153, 233);
+}

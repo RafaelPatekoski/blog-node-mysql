@@ -1,0 +1,39 @@
+<%- include("../partials/header")  %> 
+<body>
+    <%- include("../partials/navbar")  %>
+    <div class="mt-2 container">
+        <div class="card">
+            <div class="card-title">
+                <h3>Criar Artigo</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/adm/article/edit">
+                    <input type="hidden" name="id" id="id" value="<%= data.article.id%>">
+                    <input class="form-control" type="text" name="title" value="<%= data.article.title  %> "><br>
+                    <textarea name="article" id="article" cols="30" rows="10"><%= data.article.body  %></textarea>
+                    <select name="category" class="mt-4 form-control">
+                        <% data.categories.forEach((category)=>{ %>
+                            <% if(category.id == data.article.categoryId){ %>
+                            <option value="<%= category.id %>" selected><%= category.title  %></option>
+                            <% }else{%>  
+                            <option value="<%= category.id %>"><%= category.title  %></option>
+                       <% }}) %> 
+                    </select>
+                    <button class="mt-4 btn btn-success">Editar</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+<%- include("../partials/footer")  %> 
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+  language: 'pt_BR',
+  selector: '#article',  // change this value according to your HTML
+  plugins: 'advlist link image lists'
+});
+
+</script>
