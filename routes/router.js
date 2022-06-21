@@ -3,7 +3,15 @@ const router = express.Router()
 const Category = require("../models/Category")
 const Article = require("../models/Article")
 const adminRouter = require("./adminRouter")
-router.get("/", (req, res)=>{
+router.get("/", async (req, res)=>{
+    let articles = await Article.findAll({raw: true, order: [
+        [ 'id','DESC']
+     ],
+     limit: 4
+    })
+    let categories = await Category.findAll()
+    res.render("index", {categories, articles})
+    /*
     Article.findAll({raw: true, order: [
         [ 'id','DESC']
      ],
@@ -14,19 +22,30 @@ router.get("/", (req, res)=>{
             res.render("index", {categories, articles})
         })
     })
+    */
 })
-router.get("/read/:slug",(req,res)=>{
+router.get("/read/:slug",async (req,res)=>{
     let slug = req.params.slug
-    Category.findAll().then(categories=>{
-        Article.findOne({where: {slug: slug}}).then(article=>{
-            if(article != undefined){
-                res.render("read", {categories, article})
-
-            }else{res.redirect("/")}
-        }).catch(error =>{
+    let categories = await Category.findAll()
+    Article.findOne({where: {slug: slug}}).then(article => {
+        if(article != undefined){
+            res.render("read",{categories, article})
+        }else{
             res.redirect("/")
-        })    
+        }
+    }).catch(error => {
+        res.redirect("/")
     })
+    // Category.findAll().then(categories=>{
+    //     Article.findOne({where: {slug: slug}}).then(article=>{
+    //         if(article != undefined){
+    //             res.render("read", {categories, article})
+
+    //         }else{res.redirect("/")}
+    //     }).catch(error =>{
+    //         res.redirect("/")
+    //     })    
+    // })
 })
 router.get("/articles/:num",(req,res)=>{
     let page = req.params.num
